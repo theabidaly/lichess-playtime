@@ -17,16 +17,15 @@ function decrypt(plaintext)
 window.addEventListener('load', onLoad)
 function onLoad()
 {    
-    button = document.getElementById("submit_button")
-    input = document.getElementById("input_text")
-
+    submit_button = document.getElementById("submit-button")
+    input = document.getElementById("input-text")
     text = document.getElementById("text")
     
-    apiCall()
 
-    button.addEventListener("click", function ()
+    submit_button.addEventListener("click", function ()
     {
-        document.getElementById("text").innerHTML = document.getElementById("input_text").value + " ..."
+        if(getUsername() == "") return;
+        apiCall()
     })
 
     input.addEventListener("focus", function()
@@ -48,18 +47,39 @@ function onLoad()
     })
 }
 
+// get text from input text return nothing if blank
+function getUsername()
+{
+    if(input.value == "Enter Lichess username")
+    {
+        return "";
+    }
+    return document.getElementById("input-text").value;
+}
+
 // call api
 async function apiCall()
 {
     const chip1 = "njtZSkJgp23li7=LPO3S1vvJ"
 
-    const response = await fetch('https://lichess.org/api/user/theabidaly0?trophies=false&profile=true&rank=false&fideId=false', {
-        headers: {
-            Authorization: `Bearer ${decrypt(chip1)}`
-        }
-    })
-    
-    const text = await response.text();
+    try
+    {
+        const response = await fetch(`https://lichess.org/api/user/${getUsername()}?trophies=false&profile=true&rank=false&fideId=false`, {
+            headers: {
+                Authorization: `Bearer ${decrypt(chip1)}`
+            }
+        })
+        
+        const text = await response.text()
 
-    json_information = JSON.parse(text)
+        json_information = JSON.parse(text)
+    }
+    catch(e)
+    {
+        console.log("Error");
+    }
+
+    console.log(json_information)
 }
+
+//
