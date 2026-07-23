@@ -38,9 +38,9 @@ h3 {
   color: var(--slate);
   margin: 0%;
   width: fit-content;
-  text-align: center;
-  display: flex;
-  justify-self: center;
+  margin-inline: auto;
+  display: grid;
+  place-items: center;
   font-family: "Patrick Hand SC", cursive;
   font-style: normal;
   font-weight: 400;
@@ -96,9 +96,9 @@ p {
 .information-group
 {
   width: calc-size(fit-content, size + 100px);
+  margin-inline: auto;
   display: flex;
   justify-content: center;
-  justify-self: center;
   align-items: center;
 }
 
@@ -127,8 +127,7 @@ p {
   margin: 0;
   padding-inline: 24px;
   width: fit-content;
-  display: flex;
-  justify-self: center;
+  margin-inline: auto;
   font-family: "Patrick Hand", cursive;
   font-style: normal;
   font-weight: 400;
